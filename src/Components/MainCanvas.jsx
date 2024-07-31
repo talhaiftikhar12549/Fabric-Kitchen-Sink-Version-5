@@ -29,11 +29,40 @@ export default function MainCanvas() {
 
     }
 
+    function addCircle()
+    {
+        let circle = new fabric.Circle({
+            radius: 20,
+            fill: 'green',
+            left: 100,
+            top: 100
+        });
+        canvas.add(circle)
+    }
+
+    function addPath()
+    {
+        let path = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
+        path.set({
+            left: 120,
+            top: 120
+        });
+
+        canvas.add(path)
+    }
+
     return (
         <>
             <p>Fabric Js Canvas</p>
             <canvas id={"canvas"} style={{border: "black solid 2px"}}></canvas>
-            <button onClick={addRectangle}>Click Me</button>
+            <div className={"flex border m-2"}>
+                <button onClick={addRectangle}>Add Rectangle</button>
+                <button onClick={addCircle}>Add Circle</button>
+                <button onClick={addRectangle}>Add Image</button>
+                <button onClick={addPath}>Add Path</button>
+                <button onClick={addRectangle}>Add Text</button>
+            </div>
+
 
             <div style={{color: "red",}}>
                 <p>meow</p>
