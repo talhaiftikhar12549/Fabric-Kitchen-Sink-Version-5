@@ -15,7 +15,7 @@ export default function MainCanvas() {
         formState: {errors},
     } = useForm()
 
-    const onSubmit = (data) =>{
+    const onSubmit = (data) => {
         console.log(data)
         reset()
     }
@@ -122,14 +122,18 @@ export default function MainCanvas() {
                     <div className={"border p-5 h-[80%] w-[80%]"}>
                         <form onSubmit={handleSubmit(onSubmit)}>
                             {/* register your input into the hook by invoking the "register" function */}
-                            <input className={"border py-2 px-4 rounded"} {...register("example", {required: true})} />
+                            <input required={true} type={"number"} placeholder={"Height"}
+                                   className={"border py-2 px-4 rounded"} {...register("example", {required: true})} />
+                            {/*<br/>*/}
+                            {/*{errors.example && <span>This field is required</span>}*/}
                             <br/>
                             <br/>
                             {/* include validation with required or other standard HTML validation rules */}
-                            <input
-                                className={"border py-2 px-4 rounded"} {...register("exampleRequired", {required: true})} />
+                            <input required={true} type={"number"} placeholder={"Width"}
+                                   className={"border py-2 px-4 rounded"} {...register("exampleRequired", {required: true})} />
+                            {/*<br/>*/}
                             {/* errors will return when field validation fails  */}
-                            {errors.exampleRequired && <span>This field is required</span>}
+                            {/*{errors.exampleRequired && <span>This field is required</span>}*/}
                             <br/>
                             <br/>
                             <input className={"border rounded  py-2 px-8 m-2"} type="submit"/>
