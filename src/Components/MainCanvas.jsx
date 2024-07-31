@@ -17,11 +17,16 @@ export default function MainCanvas() {
         canvas.renderAll()
     }, [])
 
+    let rectl = 50;
 
     function addRectangle() {
         let rect = new fabric.Rect({
-            left: 100 * Math.floor(Math.random() * 4),
-            top: 100 * Math.floor(Math.random() * 4),
+            // left: 100 * Math.floor(Math.random() * 4),
+            // top: 100 * Math.floor(Math.random() * 4),
+            left: rectl,
+            top: rectl,
+
+
             fill: 'red',
             width: 20,
             height: 20
@@ -43,8 +48,8 @@ export default function MainCanvas() {
     function addPath() {
         let path = new fabric.Path('M 0 0 L 100 100 L 70 100 z');
         path.set({
-            left: 120 * Math.floor(Math.random() * 4),
-            top: 120 * Math.floor(Math.random() * 4)
+            left: 100 * Math.floor(Math.random() * 3),
+            top: 100 * Math.floor(Math.random() * 3)
         });
 
         canvas.add(path)
@@ -52,7 +57,9 @@ export default function MainCanvas() {
 
     function addText() {
         let underlineText = new fabric.Text("I'm an underlined text", {
-            underline: true
+            underline: true,
+            left: 100 * Math.floor(Math.random() * 3),
+            top: 100 * Math.floor(Math.random() * 3)
         });
 
         canvas.add(underlineText)
@@ -60,10 +67,14 @@ export default function MainCanvas() {
 
     function addImage() {
         fabric.Image.fromURL('vite.svg', function (oImg) {
+            oImg.set({
+                left: 100 * Math.floor(Math.random() * 3),
+                top: 100 * Math.floor(Math.random() * 3)
+            });
             canvas.add(oImg);
         });
-
     }
+
 
     function canvasClear() {
         canvas.clear()
@@ -72,22 +83,35 @@ export default function MainCanvas() {
     return (
         <>
 
-            <p className={"border"}>Fabric Js Canvas</p>
-            <canvas id={"canvas"} style={{border: "black solid 2px"}}></canvas>
-            <div className={"flex border m-2 p-2"}>
-                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addRectangle}>Add Rectangle</button>
-                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addCircle}>Add Circle</button>
-                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addImage}>Add Image</button>
-                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addPath}>Add Path</button>
-                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addText}>Add Text</button>
-                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={canvasClear}>Clear Canvas</button>
+            <p className={"border py-4 text-2xl bold flex justify-center items-center"}>Fabric Js Canvas Kitchen
+                Sink</p>
 
+
+            <div className={"flex w-[100%] py-3"}>
+                <div className="w-[70%] flex justify-center items-center">
+                    <canvas id="canvas" style={{border: "black solid 2px"}}></canvas>
+                </div>
+
+                <div className={"w-[40%]"}>
+
+                </div>
             </div>
 
+            <div className={"border my-2 py-2"}>
+                <div className={"flex "}>
 
-            <div style={{color: "red",}}>
-                <p>meow</p>
+                    <button className={"border rounded py-2 px-4 m-2"} onClick={addRectangle}>Add Rectangle</button>
+                    <button className={"border rounded  py-2 px-4 m-2"} onClick={addCircle}>Add Circle</button>
+                    <button className={"border rounded  py-2 px-4 m-2"} onClick={addImage}>Add Image</button>
+                    <button className={"border rounded  py-2 px-4 m-2"} onClick={addPath}>Add Path</button>
+                    <button className={"border rounded  py-2 px-4 m-2"} onClick={addText}>Add Text</button>
+
+                </div>
+                <div className={"flex flex-row-reverse"}>
+                    <button className={"border rounded py-2 px-4 m-2"} onClick={canvasClear}>Clear Canvas</button>
+                </div>
             </div>
+
 
         </>
     )
