@@ -1,8 +1,31 @@
 import {useEffect} from "react";
 import {fabric} from "fabric"
+import {useForm} from "react-hook-form"
 
 let canvas
 export default function MainCanvas() {
+
+    //Form Stated
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        reset,
+        formState: {errors},
+    } = useForm()
+
+    const onSubmit = (data) =>{
+        console.log(data)
+        reset()
+    }
+
+    console.log(watch("example"))
+
+    //Form Ended
+
+
+    //Canvas Started
 
     useEffect(() => {
         canvas = new fabric.Canvas('canvas', {
@@ -16,6 +39,9 @@ export default function MainCanvas() {
         });
         canvas.renderAll()
     }, [])
+
+    //Canvas Ended
+
 
     let rectl = 50;
 
@@ -92,12 +118,27 @@ export default function MainCanvas() {
                     <canvas id="canvas" style={{border: "black solid 2px"}}></canvas>
                 </div>
 
-                <div className={"w-[40%]"}>
-
+                <div className={"w-[40%] "}>
+                    <div className={"border p-5 h-[80%] w-[80%]"}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            {/* register your input into the hook by invoking the "register" function */}
+                            <input className={"border py-2 px-4 rounded"} {...register("example", {required: true})} />
+                            <br/>
+                            <br/>
+                            {/* include validation with required or other standard HTML validation rules */}
+                            <input
+                                className={"border py-2 px-4 rounded"} {...register("exampleRequired", {required: true})} />
+                            {/* errors will return when field validation fails  */}
+                            {errors.exampleRequired && <span>This field is required</span>}
+                            <br/>
+                            <br/>
+                            <input className={"border rounded  py-2 px-8 m-2"} type="submit"/>
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            <div className={"border my-2 py-2"}>
+            <div className={"border my-2 py-2 px-4"}>
                 <div className={"flex "}>
 
                     <button className={"border rounded py-2 px-4 m-2"} onClick={addRectangle}>Add Rectangle</button>
