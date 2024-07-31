@@ -20,8 +20,8 @@ export default function MainCanvas() {
 
     function addRectangle() {
         let rect = new fabric.Rect({
-            left: 100,
-            top: 100,
+            left: 100 * Math.floor(Math.random() * 4),
+            top: 100 * Math.floor(Math.random() * 4),
             fill: 'red',
             width: 20,
             height: 20
@@ -34,17 +34,17 @@ export default function MainCanvas() {
         let circle = new fabric.Circle({
             radius: 20,
             fill: 'green',
-            left: 100,
-            top: 100
+            left: 100 * Math.floor(Math.random() * 4),
+            top: 100 * Math.floor(Math.random() * 4)
         });
         canvas.add(circle)
     }
 
     function addPath() {
-        let path = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
+        let path = new fabric.Path('M 0 0 L 100 100 L 70 100 z');
         path.set({
-            left: 120,
-            top: 120
+            left: 120 * Math.floor(Math.random() * 4),
+            top: 120 * Math.floor(Math.random() * 4)
         });
 
         canvas.add(path)
@@ -57,12 +57,18 @@ export default function MainCanvas() {
 
         canvas.add(underlineText)
     }
+
     function addImage() {
-        fabric.Image.fromURL('vite.svg', function(oImg) {
+        fabric.Image.fromURL('vite.svg', function (oImg) {
             canvas.add(oImg);
         });
 
     }
+
+    function canvasClear() {
+        canvas.clear()
+    }
+
     return (
         <>
 
@@ -74,6 +80,8 @@ export default function MainCanvas() {
                 <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addImage}>Add Image</button>
                 <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addPath}>Add Path</button>
                 <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addText}>Add Text</button>
+                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={canvasClear}>Clear Canvas</button>
+
             </div>
 
 
