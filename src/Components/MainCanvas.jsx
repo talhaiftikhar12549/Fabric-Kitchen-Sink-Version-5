@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {fabric} from "fabric"
+
 let canvas
 export default function MainCanvas() {
 
@@ -7,7 +8,7 @@ export default function MainCanvas() {
         canvas = new fabric.Canvas('canvas', {
             backgroundColor: 'white',
             selectionColor: 'transparent',
-            selectionBorderColor:"black",
+            selectionBorderColor: "black",
             selectionLineWidth: 1,
             width: 550,
             height: 400,
@@ -17,7 +18,7 @@ export default function MainCanvas() {
     }, [])
 
 
-    function addRectangle(){
+    function addRectangle() {
         let rect = new fabric.Rect({
             left: 100,
             top: 100,
@@ -29,8 +30,7 @@ export default function MainCanvas() {
 
     }
 
-    function addCircle()
-    {
+    function addCircle() {
         let circle = new fabric.Circle({
             radius: 20,
             fill: 'green',
@@ -40,8 +40,7 @@ export default function MainCanvas() {
         canvas.add(circle)
     }
 
-    function addPath()
-    {
+    function addPath() {
         let path = new fabric.Path('M 0 0 L 200 100 L 170 200 z');
         path.set({
             left: 120,
@@ -51,16 +50,30 @@ export default function MainCanvas() {
         canvas.add(path)
     }
 
+    function addText() {
+        let underlineText = new fabric.Text("I'm an underlined text", {
+            underline: true
+        });
+
+        canvas.add(underlineText)
+    }
+    function addImage() {
+        fabric.Image.fromURL('vite.svg', function(oImg) {
+            canvas.add(oImg);
+        });
+
+    }
     return (
         <>
-            <p>Fabric Js Canvas</p>
+
+            <p className={"border"}>Fabric Js Canvas</p>
             <canvas id={"canvas"} style={{border: "black solid 2px"}}></canvas>
-            <div className={"flex border m-2"}>
-                <button onClick={addRectangle}>Add Rectangle</button>
-                <button onClick={addCircle}>Add Circle</button>
-                <button onClick={addRectangle}>Add Image</button>
-                <button onClick={addPath}>Add Path</button>
-                <button onClick={addRectangle}>Add Text</button>
+            <div className={"flex border m-2 p-2"}>
+                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addRectangle}>Add Rectangle</button>
+                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addCircle}>Add Circle</button>
+                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addImage}>Add Image</button>
+                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addPath}>Add Path</button>
+                <button className={"border radius-[5px] py-2 px-4 m-2"} onClick={addText}>Add Text</button>
             </div>
 
 
