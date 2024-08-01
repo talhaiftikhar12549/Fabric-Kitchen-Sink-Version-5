@@ -478,15 +478,17 @@ export default function MainCanvas() {
     const onSubmit = (data) => {
         console.log(data);
         let obj = canvas.getActiveObject();
-
+        debugger
 
         if(obj){
-           const {left, top, height, width} = data;
+           const {left, top, height, width,fill} = data;
             obj.set({
                 left: parseInt(left),
                 top: parseInt(top),
                 height: parseInt(height),
                 width: parseInt(width),
+                stroke:5,
+                fill:fill,
             });
             canvas.renderAll();
         }
@@ -496,7 +498,7 @@ export default function MainCanvas() {
 
     useEffect(() => {
         canvas = new fabric.Canvas("canvas", {
-            backgroundColor: "white",
+            backgroundColor: "#f1f1f1",
             selectionColor: "transparent",
             selectionBorderColor: "black",
             selectionLineWidth: 1,
@@ -511,6 +513,7 @@ export default function MainCanvas() {
                 setSelectedObj(true)
                 console.log("An object was clicked!", options.target.type);
                 const activeObject = options.target;
+                console.log(activeObject)
                 console.log("fill", activeObject.fill);
                 console.log("top", activeObject.top);
                 console.log("left", activeObject.left);
@@ -524,16 +527,16 @@ export default function MainCanvas() {
 
         canvas.on("mouse:down", handleMouseDown);
 
-        return () => {
-            canvas.off("mouse:down", handleMouseDown);
-        };
+        // return () => {
+        //     canvas.off("mouse:down", handleMouseDown);
+        // };
     }, []);
 
     function addRectangle() {
         let rect = new fabric.Rect({
             left: 100 * Math.floor(Math.random() * 6),
             top: 100 * Math.floor(Math.random() * 4),
-            fill: "#f1f1f1",
+            fill: 'rgb(0,0,0)',
             width: 20,
             height: 20,
             stroke: 0,
@@ -603,20 +606,20 @@ export default function MainCanvas() {
                                 required={true}
                                 type={"number"}
                                 placeholder={"Height"}
-                                min={0}
+                                min={1}
                                 max={390}
                                 className={"border py-2 px-[10%] rounded"}
-                                {...register("height", {required: true})}
+                                {...register("height" )}
                             />
                             <br/> <br/>
                             <input
                                 required={true}
                                 type={"number"}
                                 placeholder={"Width"}
-                                min={0}
+                                min={1}
                                 max={390}
                                 className={"border py-2 px-[10%] rounded"}
-                                {...register("width", {required: true})}
+                                {...register("width")}
                             />
                             <br/> <br/>
                             <input
@@ -626,7 +629,7 @@ export default function MainCanvas() {
                                 min={0}
                                 max={390}
                                 className={"border py-2 px-[10%] rounded"}
-                                {...register("top", {required: true})}
+                                {...register("top")}
                             />
                             <br/> <br/>
                             <input
@@ -636,24 +639,24 @@ export default function MainCanvas() {
                                 min={0}
                                 max={590}
                                 className={"border py-2 px-[10%] rounded"}
-                                {...register("left", {required: true})}
+                                {...register("left")}
                             />
                             <br/>
                             <br/>
-                            {/*<div className="relative inline-block">*/}
-                            {/*    <input*/}
-                            {/*        type="color"*/}
-                            {/*        id="colorPicker"*/}
-                            {/*        {...register("fill")}*/}
-                            {/*        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"*/}
-                            {/*    />*/}
-                            {/*    <label*/}
-                            {/*        htmlFor="colorPicker"*/}
-                            {/*        className="border py-2 px-4 rounded cursor-pointer"*/}
-                            {/*    >*/}
-                            {/*        Change Color*/}
-                            {/*    </label>*/}
-                            {/*</div>*/}
+                            <div className="relative inline-block">
+                                <input
+                                    type="color"
+                                    id="colorPicker"
+                                    {...register("fill")}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                                <label
+                                    htmlFor="colorPicker"
+                                    className="border py-2 px-4 rounded cursor-pointer"
+                                >
+                                    Change Color
+                                </label>
+                            </div>
                             <br/>
 
                             <input className={"border rounded py-2 px-8 m-2"} type="submit"/>
