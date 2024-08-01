@@ -464,7 +464,7 @@ import {useForm} from "react-hook-form";
 
 let canvas;
 export default function MainCanvas() {
-    const [formData, setFormData] = useState(0);
+    const [selectedObj, setSelectedObj] = useState(false);
 
     // Form States
     const {
@@ -478,6 +478,7 @@ export default function MainCanvas() {
     const onSubmit = (data) => {
         console.log(data);
         let obj = canvas.getActiveObject();
+
 
         if(obj){
            const {left, top, height, width} = data;
@@ -504,7 +505,10 @@ export default function MainCanvas() {
         });
 
         const handleMouseDown = (options) => {
+
+
             if (options.target) {
+                setSelectedObj(true)
                 console.log("An object was clicked!", options.target.type);
                 const activeObject = options.target;
                 console.log("fill", activeObject.fill);
@@ -514,18 +518,7 @@ export default function MainCanvas() {
                 console.log("height", activeObject.height);
                 console.log("radius", activeObject.radius);
                 console.log("stroke", activeObject.stroke);
-                console.log("formData", formData)
-                if (formData) {
-                    console.log(data, "data in canvas function function")
-                    activeObject.set({
-                        left: parseInt(formData.left),
-                        top: parseInt(formData.top),
-                        fill: parseInt(formData.fill),
-                        height: parseInt(formData.height),
-                        width: parseInt(formData.width),
-                    });
-                    canvas.renderAll();
-                }
+
             }
         };
 
@@ -534,7 +527,7 @@ export default function MainCanvas() {
         return () => {
             canvas.off("mouse:down", handleMouseDown);
         };
-    }, [formData]);
+    }, []);
 
     function addRectangle() {
         let rect = new fabric.Rect({
@@ -604,7 +597,7 @@ export default function MainCanvas() {
 
                 <div className={"w-[40%] h-[95%] border flex grow flex-col"}>
                     <div className={"border p-5 h-[80%] w-[80%]"}>
-                        <form onSubmit={handleSubmit(onSubmit)} className={""}>
+                        { selectedObj &&  <form onSubmit={handleSubmit(onSubmit)} className={""}>
                             <input
                                 onChange={()=>console.log('changed')}
                                 required={true}
@@ -665,6 +658,7 @@ export default function MainCanvas() {
 
                             <input className={"border rounded py-2 px-8 m-2"} type="submit"/>
                         </form>
+                        }
                     </div>
                 </div>
             </div>
