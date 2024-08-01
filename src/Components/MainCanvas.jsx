@@ -33,7 +33,7 @@ export default function MainCanvas() {
             selectionColor: 'transparent',
             selectionBorderColor: "black",
             selectionLineWidth: 1,
-            width: 550,
+            width: 600,
             height: 400,
 
         });
@@ -57,6 +57,9 @@ export default function MainCanvas() {
             width: 20,
             height: 20
         });
+        rect.on('selected', function () {
+            console.log('selected a rectangle');
+        })
         canvas.add(rect);
 
     }
@@ -65,38 +68,49 @@ export default function MainCanvas() {
         let circle = new fabric.Circle({
             radius: 20,
             fill: 'green',
-            left: 100 * Math.floor(Math.random() * 4),
+            left: 100 * Math.floor(Math.random() * 6),
             top: 100 * Math.floor(Math.random() * 4)
         });
+        circle.on('selected', function () {
+            console.log('selected a rectangle');
+        })
         canvas.add(circle)
     }
 
     function addPath() {
         let path = new fabric.Path('M 0 0 L 100 100 L 70 100 z');
         path.set({
-            left: 100 * Math.floor(Math.random() * 3),
+            left: 100 * Math.floor(Math.random() * 5),
             top: 100 * Math.floor(Math.random() * 3)
         });
-
+        path.on('selected', function () {
+            console.log('selected a rectangle');
+        })
         canvas.add(path)
     }
 
     function addText() {
         let underlineText = new fabric.Text("I'm an underlined text", {
             underline: true,
-            left: 100 * Math.floor(Math.random() * 3),
-            top: 100 * Math.floor(Math.random() * 3)
+            left: 100 * Math.floor(Math.random() * 5),
+            top: 100 * Math.floor(Math.random() * 4),
+            fontSize: 20,
         });
-
+        underlineText.on('selected', function () {
+            console.log('selected a rectangle');
+        })
         canvas.add(underlineText)
     }
 
     function addImage() {
         fabric.Image.fromURL('vite.svg', function (oImg) {
             oImg.set({
-                left: 100 * Math.floor(Math.random() * 3),
-                top: 100 * Math.floor(Math.random() * 3)
+                left: 100 * Math.floor(Math.random() * 5),
+                top: 100 * Math.floor(Math.random() * 4)
             });
+            oImg.on('selected', function () {
+                console.log('selected a rectangle');
+            })
             canvas.add(oImg);
         });
     }
