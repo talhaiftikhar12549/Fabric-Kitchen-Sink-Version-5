@@ -230,13 +230,7 @@ export default function MainCanvas() {
         formState: {errors},
     } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data)
 
-addRectangle(data.left,data.top,data.fill,data.width,data.height)
-
-        reset()
-    }
 
     //console.log(watch("example"))
 
@@ -255,7 +249,7 @@ addRectangle(data.left,data.top,data.fill,data.width,data.height)
             height: 400,
 
         });
-
+        const activeObject = canvas.getActiveObject();
         canvas.on('mouse:down', function(options) {
             if (options.target) {
                 console.log('an object was clicked! ', options.target.type);
@@ -264,8 +258,16 @@ addRectangle(data.left,data.top,data.fill,data.width,data.height)
                 console.log('left', options.target.canvas._activeObject.left)
                 console.log('width', options.target.canvas._activeObject.width)
                 console.log('height', options.target.canvas._activeObject.height)
+                console.log('radius', options.target.canvas._activeObject.radius)
+                console.log('stroke', options.target.canvas._activeObject.stroke)
                 //to set data
-                //options.target._activeObject.set({})
+                options.target.set({
+                    left: 120,
+                    right:120,
+                    fill:'#f1f1f1',
+                    height: 120,
+                    width:120,
+                });
             }
         });
 
@@ -285,7 +287,8 @@ addRectangle(data.left,data.top,data.fill,data.width,data.height)
             top: 100 * Math.floor(Math.random() * 4) ,
             fill: '#f1f1f1',
             width: 20,
-            height: 20
+            height: 20,
+            stroke:0
         });
         canvas.add(rect);
 
