@@ -11,6 +11,7 @@ export default function MainCanvas() {
     const [radius, setRadius] = useState(0);
     const [stroke, setStroke] = useState(0);
     const [fill, setFill] = useState();
+    const [objName, setObjName] = useState();
     const [selectedObj, setSelectedObj] = useState(null);
 
     //Canvas define Start
@@ -27,6 +28,8 @@ export default function MainCanvas() {
         const handleMouseDown = (options) => {
             if (options.target) {
                 console.log(options.target)
+                console.log(options.target.type)
+                setObjName(options.target.type)
                 setSelectedObj(options.target);
                 const activeObject = options.target;
                 setLeft(activeObject.left);
@@ -220,31 +223,41 @@ export default function MainCanvas() {
                                 min={0}
                                 max={585}
                             /><br/>
-                            <label>Radius&nbsp;</label>
-                            <input
-                                className={"border my-2 py-2 px-[10%] rounded"}
-                                onChange={handleChange}
-                                type={"number"}
-                                name="radius"
-                                value={radius}
-                                placeholder={'radius'}
-                                min={0}
-                                max={50}
-                            /><br/>
-                            <label>Color &nbsp;</label>
-                            <button onClick={() => {
-                                document.getElementById('colorInput').click();
-                            }} className={"border py-2 px-[10%] my-2"}>Pick Color
-                            </button>
-                            <input
-                                className={"border py-2 px-[10%]  rounded opacity-0"}
-                                type={"color"}
-                                name="fill"
-                                onChange={handleChange}
-                                value={fill}
-                                placeholder={'color'}
-                                id="colorInput"
-                            /><br/>
+                            {objName === "circle" && (
+                                <>
+                                    <label>Radius&nbsp;</label>
+                                    <input
+                                        className={"border my-2 py-2 px-[10%] rounded"}
+                                        onChange={handleChange}
+                                        type={"number"}
+                                        name="radius"
+                                        value={radius}
+                                        placeholder={'radius'}
+                                        min={0}
+                                        max={50}
+                                    />
+                                    <br/>
+                                </>
+                            )}
+                            {objName !== "image" && (
+                                <>
+                                    <label>Color &nbsp;</label>
+                                    <button onClick={() => {
+                                        document.getElementById('colorInput').click();
+                                    }} className={"border py-2 px-[10%] my-2"}>Pick Color
+                                    </button>
+                                    <input
+                                        className={"border py-2 px-[10%]  rounded opacity-0"}
+                                        type={"color"}
+                                        name="fill"
+                                        onChange={handleChange}
+                                        value={fill}
+                                        placeholder={'color'}
+                                        id="colorInput"
+                                    /><br/>
+                                </>
+                            )
+                            }
                         </div>
                     </div>
 
@@ -253,7 +266,7 @@ export default function MainCanvas() {
         </div>
         {/*Canvas And Form Ends*/}
         {/*Buttons Bar Start*/}
-        <div className={"border my-2 py-2 px-4"}>
+        <div className={"border my-1 py-2 px-4"}>
             <div className={"flex "}>
                 <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
                         onClick={addRectangle}>
