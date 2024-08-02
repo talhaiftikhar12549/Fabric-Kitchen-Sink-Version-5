@@ -24,6 +24,7 @@ export default function MainCanvas() {
             width: 600,
             height: 400,
         });
+            window.canvas
 
         const handleMouseDown = (options) => {
             if (options.target) {
@@ -48,11 +49,15 @@ export default function MainCanvas() {
             setSelectedObj(null);
         };
 
-        canvas.on("mouse:down", handleMouseDown);
+        canvas.on("mouse:down", handleMouseDown );
+        canvas.on("object:moving", handleMouseDown );
+        canvas.on("object:modified", handleMouseDown );
         canvas.on("selection:cleared", handleSelectionCleared);
 
         return () => {
             canvas.off("mouse:down", handleMouseDown);
+            canvas.off("object:moving", handleMouseDown);
+            canvas.off("object:modified", handleMouseDown);
             canvas.off("selection:cleared", handleSelectionCleared);
         };
     }, []);
@@ -165,7 +170,7 @@ export default function MainCanvas() {
 //    Adding Shapes on Canvas Ends
     return (<>
         {/*Header Start*/}
-        <p className={"border py-4 text-3xl  extra-bold flex justify-center items-center shadow-md"}>
+        <p className={"border  py-4 text-3xl  extra-bold flex justify-center items-center shadow-md"}>
             Fabric Js Canvas Kitchen Sink
         </p>
         {/*Header Ends*/}
@@ -266,7 +271,7 @@ export default function MainCanvas() {
         </div>
         {/*Canvas And Form Ends*/}
         {/*Buttons Bar Start*/}
-        <div className={"border my-1 py-2 px-4"}>
+        <div className={"border my-1 py-[10px] px-4"}>
             <div className={"flex "}>
                 <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
                         onClick={addRectangle}>
