@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState} from "react";
 import {fabric} from "fabric";
 
 let canvas;
@@ -12,8 +12,6 @@ export default function MainCanvas() {
     const [stroke, setStroke] = useState(0);
     const [fill, setFill] = useState();
     const [selectedObj, setSelectedObj] = useState(null);
-
-    const colorInputRef = useRef(null);
 
     useEffect(() => {
         canvas = new fabric.Canvas("canvas", {
@@ -31,9 +29,11 @@ export default function MainCanvas() {
                 setSelectedObj(options.target);
                 const activeObject = options.target;
                 setLeft(activeObject.left);
-                setHeight(activeObject.height * activeObject.scaleY);
+                // setHeight(activeObject.height * activeObject.scaleY);
+                setHeight(activeObject.scaleY)
                 setTop(activeObject.top);
-                setWidth(activeObject.width * activeObject.scaleX);
+                // setWidth(activeObject.width * activeObject.scaleX);
+                setWidth(activeObject.scaleX)
                 setRadius(activeObject.radius)
                 setStroke(activeObject.stroke)
                 setFill(activeObject.fill)
@@ -58,8 +58,10 @@ export default function MainCanvas() {
             selectedObj.set({
                 left: parseInt(left),
                 top: parseInt(top),
-                height: parseInt(height) / selectedObj.scaleY,
-                width: parseInt(width) / selectedObj.scaleX,
+                // height: parseInt(height) / selectedObj.scaleY,
+                // width: parseInt(width) / selectedObj.scaleX,
+                scaleX: parseInt(width),
+                scaleY: parseInt(height),
                 radius: parseInt(radius),
                 stroke: parseInt(stroke),
                 fill: fill,
@@ -76,15 +78,15 @@ export default function MainCanvas() {
         if (name === "top") setTop(value);
         if (name === "left") setLeft(value);
         if (name === "radius") setRadius(value);
-        if (name === "stroke")
-        {
+        if (name === "stroke") {
             if (value === true) {
                 setStroke(0);
             } else if (value === false) {
                 setStroke(1);
             }
 
-        };
+        }
+        ;
         if (name === "fill") setFill(value);
 
     };
@@ -94,8 +96,10 @@ export default function MainCanvas() {
             left: 100 * Math.floor(Math.random() * 6),
             top: 100 * Math.floor(Math.random() * 4),
             fill: 'blue',
-            width: 120,
-            height: 40,
+             width: 80,
+             height: 40,
+            scaleX: 1,
+            ScaleY: 1,
             stroke: 0,
 
         });
@@ -118,6 +122,8 @@ export default function MainCanvas() {
         path.set({
             left: 100 * Math.floor(Math.random() * 5),
             top: 100 * Math.floor(Math.random() * 3),
+            scaleX: 1,
+            scaleY: 1,
             stroke: 0,
         });
         canvas.add(path);
@@ -129,6 +135,8 @@ export default function MainCanvas() {
             left: 100 * Math.floor(Math.random() * 5),
             top: 100 * Math.floor(Math.random() * 4),
             fontSize: 20,
+            scaleX: 1,
+            scaleY: 1,
             stroke: 0,
         });
         canvas.add(underlineText);
@@ -139,8 +147,8 @@ export default function MainCanvas() {
             oImg.set({
                 left: 100 * Math.floor(Math.random() * 5),
                 top: 100 * Math.floor(Math.random() * 4),
-                scaleX:2,
-                scaleY:2,
+                scaleX: 1,
+                scaleY: 1,
             });
             canvas.add(oImg);
         });
@@ -152,22 +160,22 @@ export default function MainCanvas() {
 
     return (
         <>
-            <p className={"border py-4 text-2xl bold flex justify-center items-center"}>
+            <p className={"border py-4 text-3xl  extra-bold flex justify-center items-center shadow-md"}>
                 Fabric Js Canvas Kitchen Sink
             </p>
 
             <div className={"flex w-[100%] py-3"}>
                 <div className="w-[70%] flex justify-center items-center">
-                    <canvas id="canvas" style={{border: "black solid 2px"}}></canvas>
+                    <canvas className={"shadow-md"} id="canvas" style={{border: "black solid 2px"}}></canvas>
                 </div>
                 <div className={"w-[40%] h-[95%] flex "}>
-                {selectedObj &&
+                    {selectedObj &&
 
-                        <div className={"border p-5 h-[80%] w-[80%]"}>
+                        <div className={"border p-5 h-[80%] w-[80%] shadow-lg"}>
                             <div>
-                                <label>Height</label>
+                                <label>Height&nbsp;</label>
                                 <input
-                                    className={"border py-2 px-[10%] rounded"}
+                                    className={"border my-2 py-2 px-[10%] rounded"}
                                     onChange={handleChange}
                                     type={"number"}
                                     name="height"
@@ -176,9 +184,9 @@ export default function MainCanvas() {
                                     min={0}
                                     max={380}
                                 /><br/>
-                                <label>Width</label>
+                                <label>Width&nbsp;</label>
                                 <input
-                                    className={"border py-2 px-[10%] rounded"}
+                                    className={"border my-2 py-2 px-[10%] rounded"}
                                     onChange={handleChange}
                                     type={"number"}
                                     name="width"
@@ -187,9 +195,9 @@ export default function MainCanvas() {
                                     min={0}
                                     max={585}
                                 /><br/>
-                                <label>Top</label>
+                                <label>Top&nbsp;</label>
                                 <input
-                                    className={"border py-2 px-[10%] rounded"}
+                                    className={"border my-2 py-2 px-[10%] rounded"}
                                     onChange={handleChange}
                                     type={"number"}
                                     name="top"
@@ -198,9 +206,9 @@ export default function MainCanvas() {
                                     min={0}
                                     max={385}
                                 /><br/>
-                                <label>Left</label>
+                                <label>Left&nbsp;</label>
                                 <input
-                                    className={"border py-2 px-[10%] rounded"}
+                                    className={"border my-2 py-2 px-[10%] rounded"}
                                     onChange={handleChange}
                                     type={"number"}
                                     name="left"
@@ -209,9 +217,9 @@ export default function MainCanvas() {
                                     min={0}
                                     max={585}
                                 /><br/>
-                                <label>Radius</label>
+                                <label>Radius&nbsp;</label>
                                 <input
-                                    className={"border py-2 px-[10%] rounded"}
+                                    className={"border my-2 py-2 px-[10%] rounded"}
                                     onChange={handleChange}
                                     type={"number"}
                                     name="radius"
@@ -220,25 +228,13 @@ export default function MainCanvas() {
                                     min={0}
                                     max={50}
                                 /><br/>
-                                {/*<label>Stroke</label>*/}
-                                {/*<input*/}
-                                {/*    className={"border py-2 px-[10%] rounded"}*/}
-                                {/*    onChange={handleChange}*/}
-                                {/*    type={"checkbox"}*/}
-                                {/*    name="stroke"*/}
-                                {/*    value={stroke}*/}
-                                {/*    placeholder={'stroke'}*/}
-                                {/*    min={0}*/}
-                                {/*    max={50}*/}
-                                {/*/>*/}
-                                {/*<br/>*/}
-                                <label>Color</label>
+                                <label>Color &nbsp;</label>
                                 <button onClick={() => {
                                     document.getElementById('colorInput').click();
-                                }} className={"border"}>Pick Color
+                                }} className={"border py-2 px-[10%] my-2"}>Pick Color
                                 </button>
                                 <input
-                                    className={"border py-2 px-[10%] rounded opacity-0"}
+                                    className={"border py-2 px-[10%]  rounded opacity-0"}
                                     type={"color"}
                                     name="fill"
                                     onChange={handleChange}
@@ -249,31 +245,37 @@ export default function MainCanvas() {
                             </div>
                         </div>
 
-                }
+                    }
                 </div>
             </div>
 
             <div className={"border my-2 py-2 px-4"}>
                 <div className={"flex "}>
-                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addRectangle}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
+                            onClick={addRectangle}>
                         Add Rectangle
                     </button>
-                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addCircle}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
+                            onClick={addCircle}>
                         Add Circle
                     </button>
-                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addImage}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
+                            onClick={addImage}>
                         Add Image
                     </button>
-                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addPath}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
+                            onClick={addPath}>
                         Add Path
                     </button>
-                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addText}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"}
+                            onClick={addText}>
                         Add Text
                     </button>
                 </div>
 
                 <div className={"flex flex-row-reverse"}>
-                    <button className={"border font-semibold bg-red-600 text-white rounded py-2 px-4 m-2 "} onClick={canvasClear}>
+                    <button className={"border font-semibold bg-red-600 text-white rounded py-2 px-4 m-2 "}
+                            onClick={canvasClear}>
                         Clear Canvas
                     </button>
                 </div>
