@@ -63,6 +63,7 @@ export default function MainCanvas() {
                 radius: parseInt(radius),
                 stroke: parseInt(stroke),
                 fill: fill,
+
             });
             canvas.renderAll();
         }
@@ -75,8 +76,17 @@ export default function MainCanvas() {
         if (name === "top") setTop(value);
         if (name === "left") setLeft(value);
         if (name === "radius") setRadius(value);
-        if (name === "stroke") setStroke(value);
+        if (name === "stroke")
+        {
+            if (value === true) {
+                setStroke(0);
+            } else if (value === false) {
+                setStroke(1);
+            }
+
+        };
         if (name === "fill") setFill(value);
+
     };
 
     const addRectangle = () => {
@@ -87,6 +97,9 @@ export default function MainCanvas() {
             width: 40,
             height: 40,
             stroke: 0,
+            setScale(sx, sy) {
+            }
+
         });
         canvas.add(rect);
     };
@@ -161,7 +174,7 @@ export default function MainCanvas() {
                                     value={height}
                                     placeholder={'Height'}
                                     min={0}
-                                    max={390}
+                                    max={380}
                                 /><br/>
                                 <label>Width</label>
                                 <input
@@ -172,7 +185,7 @@ export default function MainCanvas() {
                                     value={width}
                                     placeholder={'Width'}
                                     min={0}
-                                    max={390}
+                                    max={585}
                                 /><br/>
                                 <label>Top</label>
                                 <input
@@ -183,7 +196,7 @@ export default function MainCanvas() {
                                     value={top}
                                     placeholder={'Top'}
                                     min={0}
-                                    max={390}
+                                    max={385}
                                 /><br/>
                                 <label>Left</label>
                                 <input
@@ -194,7 +207,7 @@ export default function MainCanvas() {
                                     value={left}
                                     placeholder={'Left'}
                                     min={0}
-                                    max={390}
+                                    max={585}
                                 /><br/>
                                 <label>Radius</label>
                                 <input
@@ -207,17 +220,18 @@ export default function MainCanvas() {
                                     min={0}
                                     max={50}
                                 /><br/>
-                                <label>Stroke</label>
-                                <input
-                                    className={"border py-2 px-[10%] rounded"}
-                                    onChange={handleChange}
-                                    type={"checkbox"}
-                                    name="stroke"
-                                    value={stroke}
-                                    placeholder={'stroke'}
-                                    min={0}
-                                    max={50}
-                                /><br/>
+                                {/*<label>Stroke</label>*/}
+                                {/*<input*/}
+                                {/*    className={"border py-2 px-[10%] rounded"}*/}
+                                {/*    onChange={handleChange}*/}
+                                {/*    type={"checkbox"}*/}
+                                {/*    name="stroke"*/}
+                                {/*    value={stroke}*/}
+                                {/*    placeholder={'stroke'}*/}
+                                {/*    min={0}*/}
+                                {/*    max={50}*/}
+                                {/*/>*/}
+                                {/*<br/>*/}
                                 <label>Color</label>
                                 <button onClick={() => {
                                     document.getElementById('colorInput').click();
