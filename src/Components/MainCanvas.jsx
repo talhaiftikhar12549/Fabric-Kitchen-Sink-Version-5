@@ -147,10 +147,10 @@ export default function MainCanvas() {
                 <div className="w-[70%] flex justify-center items-center">
                     <canvas id="canvas" style={{border: "black solid 2px"}}></canvas>
                 </div>
+                <div className={"w-[40%] h-[95%] flex "}>
+                {selectedObj &&
 
-                <div className={"w-[40%] h-[95%] border flex grow flex-col"}>
-                    <div className={"border p-5 h-[80%] w-[80%]"}>
-                        {selectedObj &&
+                        <div className={"border p-5 h-[80%] w-[80%]"}>
                             <div>
                                 <label>Height</label>
                                 <input
@@ -219,7 +219,10 @@ export default function MainCanvas() {
                                     max={50}
                                 /><br/>
                                 <label>Color</label>
-                                <button onClick={()=>{document.getElementById('colorInput').click();}} className={"border"} >Pick Color</button>
+                                <button onClick={() => {
+                                    document.getElementById('colorInput').click();
+                                }} className={"border"}>Pick Color
+                                </button>
                                 <input
                                     className={"border py-2 px-[10%] rounded opacity-0"}
                                     type={"color"}
@@ -230,8 +233,9 @@ export default function MainCanvas() {
                                     id="colorInput"
                                 /><br/>
                             </div>
-                        }
-                    </div>
+                        </div>
+
+                }
                 </div>
             </div>
 
