@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { fabric } from "fabric";
+import {useEffect, useState, useRef} from "react";
+import {fabric} from "fabric";
 
 let canvas;
 
@@ -10,7 +10,10 @@ export default function MainCanvas() {
     const [left, setLeft] = useState(0);
     const [radius, setRadius] = useState(0);
     const [stroke, setStroke] = useState(0);
+    const [fill, setFill] = useState();
     const [selectedObj, setSelectedObj] = useState(null);
+
+    const colorInputRef = useRef(null);
 
     useEffect(() => {
         canvas = new fabric.Canvas("canvas", {
@@ -33,6 +36,7 @@ export default function MainCanvas() {
                 setWidth(activeObject.width * activeObject.scaleX);
                 setRadius(activeObject.radius)
                 setStroke(activeObject.stroke)
+                setFill(activeObject.fill)
             }
         };
 
@@ -58,19 +62,21 @@ export default function MainCanvas() {
                 width: parseInt(width) / selectedObj.scaleX,
                 radius: parseInt(radius),
                 stroke: parseInt(stroke),
+                fill: fill,
             });
             canvas.renderAll();
         }
-    }, [left, top, height, width, radius, stroke, selectedObj]);
+    }, [left, top, height, width, radius, fill, stroke, selectedObj]);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         if (name === "width") setWidth(value);
         if (name === "height") setHeight(value);
         if (name === "top") setTop(value);
         if (name === "left") setLeft(value);
-        if (name === "radius")setRadius(value);
-        if (name === "stroke")setStroke(value)
+        if (name === "radius") setRadius(value);
+        if (name === "stroke") setStroke(value);
+        if (name === "fill") setFill(value);
     };
 
     const addRectangle = () => {
@@ -139,7 +145,7 @@ export default function MainCanvas() {
 
             <div className={"flex w-[100%] py-3"}>
                 <div className="w-[70%] flex justify-center items-center">
-                    <canvas id="canvas" style={{ border: "black solid 2px" }}></canvas>
+                    <canvas id="canvas" style={{border: "black solid 2px"}}></canvas>
                 </div>
 
                 <div className={"w-[40%] h-[95%] border flex grow flex-col"}>
@@ -156,7 +162,7 @@ export default function MainCanvas() {
                                     placeholder={'Height'}
                                     min={0}
                                     max={390}
-                                /><br />
+                                /><br/>
                                 <label>Width</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
@@ -167,7 +173,7 @@ export default function MainCanvas() {
                                     placeholder={'Width'}
                                     min={0}
                                     max={390}
-                                /><br />
+                                /><br/>
                                 <label>Top</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
@@ -178,7 +184,7 @@ export default function MainCanvas() {
                                     placeholder={'Top'}
                                     min={0}
                                     max={390}
-                                /><br />
+                                /><br/>
                                 <label>Left</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
@@ -189,7 +195,7 @@ export default function MainCanvas() {
                                     placeholder={'Left'}
                                     min={0}
                                     max={390}
-                                /><br />
+                                /><br/>
                                 <label>Radius</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
@@ -200,18 +206,29 @@ export default function MainCanvas() {
                                     placeholder={'radius'}
                                     min={0}
                                     max={50}
-                                /><br />
+                                /><br/>
                                 <label>Stroke</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
                                     onChange={handleChange}
-                                    type={"number"}
+                                    type={"checkbox"}
                                     name="stroke"
                                     value={stroke}
                                     placeholder={'stroke'}
                                     min={0}
                                     max={50}
-                                /><br />
+                                /><br/>
+                                <label>Color</label>
+                                <button onClick={()=>{document.getElementById('colorInput').click();}} className={"border"} >Pick Color</button>
+                                <input
+                                    className={"border py-2 px-[10%] rounded opacity-0"}
+                                    type={"color"}
+                                    name="fill"
+                                    onChange={handleChange}
+                                    value={fill}
+                                    placeholder={'color'}
+                                    id="colorInput"
+                                /><br/>
                             </div>
                         }
                     </div>
