@@ -8,6 +8,8 @@ export default function MainCanvas() {
     const [width, setWidth] = useState(0);
     const [top, setTop] = useState(0);
     const [left, setLeft] = useState(0);
+    const [radius, setRadius] = useState(0);
+    const [stroke, setStroke] = useState(0);
     const [selectedObj, setSelectedObj] = useState(null);
 
     useEffect(() => {
@@ -22,12 +24,15 @@ export default function MainCanvas() {
 
         const handleMouseDown = (options) => {
             if (options.target) {
+                console.log(options.target)
                 setSelectedObj(options.target);
                 const activeObject = options.target;
                 setLeft(activeObject.left);
                 setHeight(activeObject.height * activeObject.scaleY);
                 setTop(activeObject.top);
                 setWidth(activeObject.width * activeObject.scaleX);
+                setRadius(activeObject.radius)
+                setStroke(activeObject.stroke)
             }
         };
 
@@ -51,10 +56,12 @@ export default function MainCanvas() {
                 top: parseInt(top),
                 height: parseInt(height) / selectedObj.scaleY,
                 width: parseInt(width) / selectedObj.scaleX,
+                radius: parseInt(radius),
+                stroke: parseInt(stroke),
             });
             canvas.renderAll();
         }
-    }, [left, top, height, width, selectedObj]);
+    }, [left, top, height, width, radius, stroke, selectedObj]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -62,6 +69,8 @@ export default function MainCanvas() {
         if (name === "height") setHeight(value);
         if (name === "top") setTop(value);
         if (name === "left") setLeft(value);
+        if (name === "radius")setRadius(value);
+        if (name === "stroke")setStroke(value)
     };
 
     const addRectangle = () => {
@@ -82,6 +91,7 @@ export default function MainCanvas() {
             fill: "green",
             left: 100 * Math.floor(Math.random() * 6),
             top: 100 * Math.floor(Math.random() * 4),
+            stroke: 0,
         });
         canvas.add(circle);
     };
@@ -91,6 +101,7 @@ export default function MainCanvas() {
         path.set({
             left: 100 * Math.floor(Math.random() * 5),
             top: 100 * Math.floor(Math.random() * 3),
+            stroke: 0,
         });
         canvas.add(path);
     };
@@ -101,6 +112,7 @@ export default function MainCanvas() {
             left: 100 * Math.floor(Math.random() * 5),
             top: 100 * Math.floor(Math.random() * 4),
             fontSize: 20,
+            stroke: 0,
         });
         canvas.add(underlineText);
     };
@@ -134,6 +146,7 @@ export default function MainCanvas() {
                     <div className={"border p-5 h-[80%] w-[80%]"}>
                         {selectedObj &&
                             <div>
+                                <label>Height</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
                                     onChange={handleChange}
@@ -144,6 +157,7 @@ export default function MainCanvas() {
                                     min={0}
                                     max={390}
                                 /><br />
+                                <label>Width</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
                                     onChange={handleChange}
@@ -154,6 +168,7 @@ export default function MainCanvas() {
                                     min={0}
                                     max={390}
                                 /><br />
+                                <label>Top</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
                                     onChange={handleChange}
@@ -164,6 +179,7 @@ export default function MainCanvas() {
                                     min={0}
                                     max={390}
                                 /><br />
+                                <label>Left</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
                                     onChange={handleChange}
@@ -174,15 +190,27 @@ export default function MainCanvas() {
                                     min={0}
                                     max={390}
                                 /><br />
+                                <label>Radius</label>
                                 <input
                                     className={"border py-2 px-[10%] rounded"}
                                     onChange={handleChange}
                                     type={"number"}
-                                    name="left"
-                                    value={left}
-                                    placeholder={'Left'}
+                                    name="radius"
+                                    value={radius}
+                                    placeholder={'radius'}
                                     min={0}
-                                    max={390}
+                                    max={50}
+                                /><br />
+                                <label>Stroke</label>
+                                <input
+                                    className={"border py-2 px-[10%] rounded"}
+                                    onChange={handleChange}
+                                    type={"number"}
+                                    name="stroke"
+                                    value={stroke}
+                                    placeholder={'stroke'}
+                                    min={0}
+                                    max={50}
                                 /><br />
                             </div>
                         }
