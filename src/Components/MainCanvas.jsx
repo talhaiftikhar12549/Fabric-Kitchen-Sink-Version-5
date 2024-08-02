@@ -94,11 +94,9 @@ export default function MainCanvas() {
             left: 100 * Math.floor(Math.random() * 6),
             top: 100 * Math.floor(Math.random() * 4),
             fill: 'blue',
-            width: 40,
+            width: 120,
             height: 40,
             stroke: 0,
-            setScale(sx, sy) {
-            }
 
         });
         canvas.add(rect);
@@ -141,6 +139,8 @@ export default function MainCanvas() {
             oImg.set({
                 left: 100 * Math.floor(Math.random() * 5),
                 top: 100 * Math.floor(Math.random() * 4),
+                scaleX:2,
+                scaleY:2,
             });
             canvas.add(oImg);
         });
@@ -255,25 +255,25 @@ export default function MainCanvas() {
 
             <div className={"border my-2 py-2 px-4"}>
                 <div className={"flex "}>
-                    <button className={"border rounded py-2 px-4 m-2"} onClick={addRectangle}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addRectangle}>
                         Add Rectangle
                     </button>
-                    <button className={"border rounded py-2 px-4 m-2"} onClick={addCircle}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addCircle}>
                         Add Circle
                     </button>
-                    <button className={"border rounded py-2 px-4 m-2"} onClick={addImage}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addImage}>
                         Add Image
                     </button>
-                    <button className={"border rounded py-2 px-4 m-2"} onClick={addPath}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addPath}>
                         Add Path
                     </button>
-                    <button className={"border rounded py-2 px-4 m-2"} onClick={addText}>
+                    <button className={"border text-white bg-blue-600 font-semibold rounded py-2 px-4 m-2"} onClick={addText}>
                         Add Text
                     </button>
                 </div>
 
                 <div className={"flex flex-row-reverse"}>
-                    <button className={"border rounded py-2 px-4 m-2 bg-red"} onClick={canvasClear}>
+                    <button className={"border font-semibold bg-red-600 text-white rounded py-2 px-4 m-2 "} onClick={canvasClear}>
                         Clear Canvas
                     </button>
                 </div>
