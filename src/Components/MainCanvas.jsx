@@ -140,7 +140,7 @@ export default function MainCanvas() {
     };
 
     const addText = () => {
-        let underlineText = new fabric.Text("Blind Sniper 053", {
+        let underlineText = new fabric.Textbox("Blind Sniper 053", {
             underline: true,
             left: 100 * Math.floor(Math.random() * 5),
             top: 100 * Math.floor(Math.random() * 4),
