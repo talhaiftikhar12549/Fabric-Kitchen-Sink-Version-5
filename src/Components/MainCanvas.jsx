@@ -8,7 +8,7 @@ export default function MainCanvas() {
     const [width, setWidth] = useState(0);
     const [top, setTop] = useState(0);
     const [left, setLeft] = useState(0);
-    const [radius, setRadius] = useState(0);
+    const [strokeWidth, setStrokeWidth] = useState(0);
     const [stroke, setStroke] = useState(0);
     const [fill, setFill] = useState();
     const [objName, setObjName] = useState();
@@ -39,7 +39,7 @@ export default function MainCanvas() {
                 setTop(activeObject.top);
                 // setWidth(activeObject.width * activeObject.scaleX);
                 setWidth(activeObject.scaleX)
-                setRadius(activeObject.radius)
+                setStrokeWidth(activeObject.strokeWidth)
                 setStroke(activeObject.stroke)
                 setFill(activeObject.fill)
             }
@@ -71,14 +71,14 @@ export default function MainCanvas() {
                 // width: parseInt(width) / selectedObj.scaleX,
                 scaleX: parseInt(width),
                 scaleY: parseInt(height),
-                radius: parseInt(radius),
+                strokeWidth: parseInt(strokeWidth),
                 stroke: parseInt(stroke),
                 fill: fill,
 
             });
             canvas.renderAll();
         }
-    }, [left, top, height, width, radius, fill, stroke, selectedObj]);
+    }, [left, top, height, width, strokeWidth, fill, stroke, selectedObj]);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -86,7 +86,7 @@ export default function MainCanvas() {
         if (name === "height") setHeight(value);
         if (name === "top") setTop(value);
         if (name === "left") setLeft(value);
-        if (name === "radius") setRadius(value);
+        if (name === "strokeWidth") setStrokeWidth(value);
         if (name === "stroke") {
             if (value === true) {
                 setStroke(0);
@@ -110,7 +110,7 @@ export default function MainCanvas() {
             height: 40,
             scaleX: 1,
             ScaleY: 1,
-            stroke: 0,
+
 
         });
         canvas.add(rect);
@@ -122,7 +122,8 @@ export default function MainCanvas() {
             fill: "green",
             left: 100 * Math.floor(Math.random() * 6),
             top: 100 * Math.floor(Math.random() * 4),
-            stroke: 0,
+            stroke:1,
+            strokeWidth: 2,
         });
         canvas.add(circle);
     };
@@ -230,20 +231,21 @@ export default function MainCanvas() {
                             /><br/>
                             {objName === "circle" && (
                                 <>
-                                    <label>Radius&nbsp;</label>
+                                    <label>Stroke Width&nbsp;</label>
                                     <input
                                         className={"border my-2 py-2 px-[10%] rounded"}
                                         onChange={handleChange}
                                         type={"number"}
-                                        name="radius"
-                                        value={radius}
-                                        placeholder={'radius'}
+                                        name="strokeWidth"
+                                        value={strokeWidth}
+                                        placeholder={'strokeWidth'}
                                         min={0}
-                                        max={50}
+                                        max={30}
                                     />
                                     <br/>
                                 </>
                             )}
+
                             {objName !== "image" && (
                                 <>
                                     <label>Color &nbsp;</label>
